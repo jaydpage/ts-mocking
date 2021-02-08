@@ -1,14 +1,4 @@
-interface Payload {
-  id: string
-  amount: number
-  callback: (result: string) => void
-}
-
-function execute(payload: Payload) {
-  const result = payload.amount * 10
-  payload.callback(`${result} for ${payload.id}`)
-  return result
-}
+import { execute } from "./object_mock_callback"
 
 describe('execute', () => {
   it('calls the callback', () => {

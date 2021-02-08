@@ -1,10 +1,10 @@
 export interface Item {
   id: string
   name: string
-  cost: number
+  price: number
   description: string
 }
 
-export function getAll(): Item[] {
+export async function getAll(): Promise<Item[]> {
   return []
 }
