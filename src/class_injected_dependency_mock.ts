@@ -1,0 +1,27 @@
+import { Item } from './dependencies/get_all'
+import { PricingService } from './dependencies/PricingService'
+
+export class ItemPriceAdjuster {
+  constructor(private pricingService: PricingService) {}
+
+  async adjustPrice(item: Item): Promise<Item> {
+    if (item.price > 100) {
+      item.price = await this.getMarkedDownPrice(item.price)
+    } else if (item.price < 100) {
+      item.price = await this.getMarkedUpPrice(item.price)
+    }
+    return item
+  }
+
+  private async getMarkedUpPrice(price: number): Promise<number> {
+    const priceMarkupPercentage = await this.pricingService.getMarkUpPercentage()
+    console.log('priceMarkeupPercentage', priceMarkupPercentage)
+    return price + 0.01 * priceMarkupPercentage * price
+  }
+
+  private async getMarkedDownPrice(price: number): Promise<number> {
+    const priceMarkdownPercentage = await this.pricingService.getMarkDownPercentage()
+    console.log('priceMarkdownPercentage', priceMarkdownPercentage)
+    return price - 0.01 * priceMarkdownPercentage * price
+  }
+}
