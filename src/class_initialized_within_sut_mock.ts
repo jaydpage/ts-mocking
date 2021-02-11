@@ -1,8 +1,12 @@
 import { Item } from './dependencies/get_all'
 import { PricingService } from './dependencies/PricingService'
 
-export class ItemPriceAdjuster {
-  constructor(private pricingService: PricingService) {}
+export class ItemPriceAdjusterVersion2 {
+  private pricingService: PricingService
+
+  constructor() {
+    this.pricingService = new PricingService()
+  }
 
   async adjustPrice(item: Item): Promise<Item> {
     if (item.price > 100) {
