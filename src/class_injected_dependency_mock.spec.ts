@@ -25,6 +25,7 @@ describe('ItemPriceAdjuster', () => {
       expect(result.price).toEqual(9.9)
     })
   })
+
   describe('price is greater than 100', () => {
     it('marks item price down by the markdown percentage', async () => {
       // Arrange
@@ -42,6 +43,25 @@ describe('ItemPriceAdjuster', () => {
       const result = await sut.adjustPrice(item)
       // Assert
       expect(result.price).toEqual(116)
+    })
+  })
+
+  describe('price is equal to 100', () => {
+    it('will not alter the price', async () => {
+      // Arrange
+      const item = {
+        id: '1',
+        name: 'foo',
+        price: 100,
+        description: '',
+      }
+      const mockPricingService = createTypedMockClass(PricingService)
+
+      const sut = new ItemPriceAdjuster(mockPricingService)
+      // Act
+      const result = await sut.adjustPrice(item)
+      // Assert
+      expect(result.price).toEqual(100)
     })
   })
 })

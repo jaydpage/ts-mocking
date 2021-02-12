@@ -52,4 +52,26 @@ describe('ItemPriceAdjusterVersion2', () => {
       expect(result.price).toEqual(116)
     })
   })
+
+  describe('price is equal to 100', () => {
+    it('will not alter the price', async () => {
+      // Arrange
+      const item = {
+        id: '1',
+        name: 'foo',
+        price: 100,
+        description: '',
+      }
+      const fakePricingService = {}
+      createTypedMockClass(PricingService).mockImplementation(
+        () => fakePricingService,
+      )
+
+      const sut = new ItemPriceAdjusterVersion2()
+      // Act
+      const result = await sut.adjustPrice(item)
+      // Assert
+      expect(result.price).toEqual(100)
+    })
+  })
 })

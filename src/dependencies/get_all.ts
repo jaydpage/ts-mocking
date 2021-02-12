@@ -1,9 +1,4 @@
-export interface Item {
-  id: string
-  name: string
-  price: number
-  description: string
-}
+import { Item } from "./Item";
 
 export async function getAll(): Promise<Item[]> {
   return []

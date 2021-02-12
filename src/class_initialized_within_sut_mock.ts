@@ -1,4 +1,4 @@
-import { Item } from './dependencies/get_all'
+import { Item } from './dependencies/Item'
 import { PricingService } from './dependencies/PricingService'
 
 export class ItemPriceAdjusterVersion2 {
