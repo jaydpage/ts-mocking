@@ -8,9 +8,15 @@ export function createTypedMockFunction(
   return fn as jest.MockedFunction<typeof fn>
 }
 
-type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never }[keyof T] & string
+type FunctionPropertyNames<T> = {
+  [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never
+}[keyof T] &
+  string
 
-export function spyOnAndMockReturnValues<T extends {}, M extends FunctionPropertyNames<Required<T>>>(object: T, method: M, returnValues: unknown[]) {
+export function spyOnAndMockReturnValues<
+  T extends {},
+  M extends FunctionPropertyNames<Required<T>>
+>(object: T, method: M, returnValues: unknown[]) {
   let callCount = 0
 
   const mockFirstCall = jest.fn()
@@ -34,8 +40,12 @@ export function spyOnAndMockReturnValues<T extends {}, M extends FunctionPropert
     spyCalledThrice,
   }
 
-  async function listenForCall(callNumber: number, fn: jest.Mock, mockedReturnValue?: unknown) {
-    return new Promise<void>(resolve => {
+  async function listenForCall(
+    callNumber: number,
+    fn: jest.Mock,
+    mockedReturnValue?: unknown,
+  ) {
+    return new Promise<void>((resolve) => {
       fn.mockImplementation(() => {
         callCount++
         if (callCount === callNumber) {
@@ -49,3 +59,10 @@ export function spyOnAndMockReturnValues<T extends {}, M extends FunctionPropert
   }
 }
 
+export async function listenForCall(callback: jest.Mock) {
+  return new Promise<void>((resolve) => {
+    callback.mockImplementation(() => {
+      resolve()
+    })
+  })
+}
