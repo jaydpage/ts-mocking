@@ -11,11 +11,17 @@ export class PubSub {
     return this.instance
   }
 
+  constructor() {
+    this.subscriptions = {} as Record<string, Callback[]>
+  }
+
   async publish(channel: string, payload: unknown) {
     console.log(`publishing ${payload} on channel ${channel}`)
-    
+
     for (const callback of this.subscriptions[channel]) {
-      callback(payload)
+      setTimeout(() => {
+        callback(payload)
+      }, 100)
     }
   }
 
