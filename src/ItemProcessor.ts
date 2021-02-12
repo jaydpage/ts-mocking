@@ -3,6 +3,7 @@ import { InMemoryCache } from './dependencies/InMemoryCache'
 import { ItemRepository } from './dependencies/ItemRepository'
 import { PubSub } from './dependencies/PubSub'
 
+// TODO: write tests for this
 export class ItemProcessor {
   private pubSub: PubSub
   private isProcessing: boolean

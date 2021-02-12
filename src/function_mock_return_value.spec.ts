@@ -1,4 +1,5 @@
 import { getAll } from './dependencies/get_all'
+import { fakeItemBuilder } from './fake_item_builder'
 import { getAllItemsOnSale } from './function_mock_return_value'
 
 jest.mock('./dependencies/get_all')
@@ -6,18 +7,8 @@ jest.mock('./dependencies/get_all')
 describe('getAllItemsOnSale', () => {
   it('returns only prices under 10', async () => {
     // Arrange
-    const itemOnSale = {
-      id: '1',
-      name: 'foo',
-      price: 9,
-      description: '',
-    }
-    const itemNotOnSale = {
-      id: '1',
-      name: 'foo',
-      price: 10,
-      description: '',
-    }
+    const itemOnSale = fakeItemBuilder().withPrice(9).build()
+    const itemNotOnSale = fakeItemBuilder().withPrice(10).build()
 
     createTypedMockFunction(getAll).mockImplementation(() => [
       itemOnSale,
