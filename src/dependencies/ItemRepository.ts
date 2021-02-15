@@ -1,4 +1,4 @@
-import { Item } from "../dependencies/Item"
+import { Item } from '../dependencies/Item'
 
 export class ItemRepository {
   private items: Item[] = []

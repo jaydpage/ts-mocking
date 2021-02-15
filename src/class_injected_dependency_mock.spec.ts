@@ -1,7 +1,7 @@
 import { ItemPriceAdjuster } from './class_injected_dependency_mock'
 import { PricingService } from './dependencies/PricingService'
 import { fakeItemBuilder } from './fake_item_builder'
-import { createTypedMockClass } from './typed_mock'
+import { createTypedMockClass } from './jest_typed_mock'
 
 jest.mock('./dependencies/PricingService')
 
