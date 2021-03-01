@@ -1,6 +1,6 @@
-import { Item } from './dependencies/Item'
+import { Item } from '../dependencies/Item'
 
-export function fakeItemBuilder(): any {
+export function testItemBuilder(): any {
   const item: Item = {
     id: '',
     name: '',

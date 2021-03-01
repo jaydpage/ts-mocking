@@ -1,5 +1,5 @@
-import { Item } from './dependencies/Item'
-import { PricingService } from './dependencies/PricingService'
+import { Item } from "../dependencies/Item"
+import { PricingService } from "../dependencies/PricingService"
 
 export class ItemPriceAdjuster {
   constructor(private pricingService: PricingService) {}

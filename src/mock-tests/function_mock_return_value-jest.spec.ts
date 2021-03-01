@@ -1,15 +1,16 @@
-import { getAll } from './dependencies/get_all'
-import { fakeItemBuilder } from './fake_item_builder'
+import { testItemBuilder } from '../builders/test_item_builder'
+import { getAll } from '../dependencies/get_all'
 import { getAllItemsOnSale } from './function_mock_return_value'
+import { createTypedMockFunction } from './jest_typed_mock'
 
-jest.mock('./dependencies/get_all')
+jest.mock('../dependencies/get_all')
 
 describe('function mock return value', () => {
   describe('getAllItemsOnSale', () => {
     it('returns only prices under 10', async () => {
       // Arrange
-      const itemOnSale = fakeItemBuilder().withPrice(9).build()
-      const itemNotOnSale = fakeItemBuilder().withPrice(10).build()
+      const itemOnSale = testItemBuilder().withPrice(9).build()
+      const itemNotOnSale = testItemBuilder().withPrice(10).build()
 
       createTypedMockFunction(getAll).mockImplementation(() => [
         itemOnSale,
@@ -22,9 +23,3 @@ describe('function mock return value', () => {
     })
   })
 })
-
-export function createTypedMockFunction(
-  fn: any,
-): jest.MockedFunction<typeof fn> {
-  return fn as jest.MockedFunction<typeof fn>
-}

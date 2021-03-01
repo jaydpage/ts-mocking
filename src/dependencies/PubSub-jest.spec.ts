@@ -1,4 +1,4 @@
-import { listenForCall } from '../jest_typed_mock'
+import { listenForCall } from '../mock-tests/jest_typed_mock'
 import { PubSub } from './PubSub'
 
 describe('PubSub', () => {
@@ -17,7 +17,7 @@ describe('PubSub', () => {
       await callbackCalled
       expect(callback).toHaveBeenCalledWith(payload)
     })
-    
+
     it('calls all subscription callbacks when publish occurs on channel', async () => {
       // Arrange
       const pubSub = PubSub.getInstance()

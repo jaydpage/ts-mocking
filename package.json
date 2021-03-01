@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "test-jest": "jest",
-    "test-mocha": "ts-mocha **/*.test.ts --require mocha_setup.js"
+    "test-mocha": "ts-mocha src/**/*.test.ts --require mocha_setup.js"
   },
   "author": "",
   "license": "ISC",
