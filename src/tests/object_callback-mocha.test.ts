@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import sinon from 'sinon'
-import { execute } from './object_mock_callback'
+import { execute } from './object_callback'
 
 describe('object mock callback', () => {
   describe('execute', () => {

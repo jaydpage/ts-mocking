@@ -6,8 +6,8 @@ import { PubSub } from './PubSub'
 // TODO: write tests for this
 export class ItemProcessor {
   private pubSub: PubSub
-  private isProcessing: boolean
-  private processedItems: Item[]
+  private isProcessing: boolean = false
+  private processedItems: Item[] = []
 
   constructor(
     private cache: InMemoryCache,
@@ -27,6 +27,7 @@ export class ItemProcessor {
     for (const item of unprocessedItems) {
       this.cache.update(item)
       this.pubSub.publish('item:updated', item)
+      this.processedItems.push(item)
     }
 
     this.isProcessing = false

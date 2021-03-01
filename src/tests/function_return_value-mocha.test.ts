@@ -1,9 +1,8 @@
+import { expect } from 'chai'
+import sinon from 'sinon'
 import { testItemBuilder } from '../builders/test_item_builder'
-import { getAll } from '../dependencies/get_all'
-import { getAllItemsOnSale } from './function_mock_return_value'
-import { createTypedMockFunction } from './jest_typed_mock'
-
-jest.mock('../dependencies/get_all')
+import * as items from '../dependencies/get_all'
+import { getAllItemsOnSale } from './function_return_value'
 
 describe('function mock return value', () => {
   describe('getAllItemsOnSale', () => {
@@ -12,14 +11,11 @@ describe('function mock return value', () => {
       const itemOnSale = testItemBuilder().withPrice(9).build()
       const itemNotOnSale = testItemBuilder().withPrice(10).build()
 
-      createTypedMockFunction(getAll).mockImplementation(() => [
-        itemOnSale,
-        itemNotOnSale,
-      ])
+      sinon.stub(items, 'getAll').resolves([itemOnSale, itemNotOnSale])
       // Act
       const result = await getAllItemsOnSale()
       // Assert
-      expect(result).toEqual([itemOnSale])
+      expect(result).to.eql([itemOnSale])
     })
   })
 })
