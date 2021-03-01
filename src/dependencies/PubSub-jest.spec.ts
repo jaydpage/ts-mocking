@@ -1,4 +1,4 @@
-import { listenForCall } from '../mock-tests/jest_typed_mock'
+import { listenForCall } from '../tests/jest_typed_mock'
 import { PubSub } from './PubSub'
 
 describe('PubSub', () => {
