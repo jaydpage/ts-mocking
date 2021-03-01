@@ -1,9 +1,8 @@
+import { expect } from 'chai'
+import sinon from 'sinon'
 import { testItemBuilder } from '../builders/test_item_builder'
 import { PricingService } from '../dependencies/PricingService'
 import { ItemPriceAdjuster } from './class_injected_dependency_mock'
-import { createTypedMockClass } from './jest_typed_mock'
-
-jest.mock('../dependencies/PricingService')
 
 describe('ItemPriceAdjuster', () => {
   describe('price is less than 100', () => {
@@ -11,14 +10,14 @@ describe('ItemPriceAdjuster', () => {
       // Arrange
       const item = testItemBuilder().withPrice(9).build()
       const pricingService = {
-        getMarkUpPercentage: jest.fn(() => 10),
+        getMarkUpPercentage: sinon.stub(() => 10),
       } as any
 
       const sut = new ItemPriceAdjuster(pricingService)
       // Act
       const result = await sut.adjustPrice(item)
       // Assert
-      expect(result.price).toEqual(9.9)
+      expect(result.price).to.equal(9.9)
     })
   })
 
@@ -26,14 +25,14 @@ describe('ItemPriceAdjuster', () => {
     it('marks item price down by the markdown percentage', async () => {
       // Arrange
       const item = testItemBuilder().withPrice(145).build()
-      const mockPricingService = createTypedMockClass(PricingService)
-      mockPricingService.getMarkDownPercentage = jest.fn(() => 20)
+      const pricingService = new PricingService()
+      sinon.stub(pricingService, 'getMarkDownPercentage').resolves(20)
 
-      const sut = new ItemPriceAdjuster(mockPricingService)
+      const sut = new ItemPriceAdjuster(pricingService)
       // Act
       const result = await sut.adjustPrice(item)
       // Assert
-      expect(result.price).toEqual(116)
+      expect(result.price).to.equal(116)
     })
   })
 
@@ -41,13 +40,12 @@ describe('ItemPriceAdjuster', () => {
     it('will not alter the price', async () => {
       // Arrange
       const item = testItemBuilder().withPrice(100).build()
-      const mockPricingService = createTypedMockClass(PricingService)
-
-      const sut = new ItemPriceAdjuster(mockPricingService)
+      const pricingService = new PricingService()
+      const sut = new ItemPriceAdjuster(pricingService)
       // Act
       const result = await sut.adjustPrice(item)
       // Assert
-      expect(result.price).toEqual(100)
+      expect(result.price).to.equal(100)
     })
   })
 })
