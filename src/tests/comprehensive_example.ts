@@ -1,7 +1,7 @@
-import { Item } from './Item'
-import { InMemoryCache } from './InMemoryCache'
-import { ItemRepository } from './ItemRepository'
-import { PubSub } from './PubSub'
+import { Item } from '../dependencies/Item'
+import { InMemoryCache } from '../dependencies/InMemoryCache'
+import { ItemRepository } from '../dependencies/ItemRepository'
+import { PubSub } from '../dependencies/PubSub'
 
 // TODO: write tests for this
 export class ItemProcessor {
