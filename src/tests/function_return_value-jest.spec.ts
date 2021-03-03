@@ -1,4 +1,4 @@
-import { testItemBuilder } from '../builders/test_item_builder'
+import { testItemBuilder } from './builders/test_item_builder'
 import { getAll } from '../dependencies/get_all'
 import { getAllItemsOnSale } from './function_return_value'
 import { createTypedMockFunction } from './helpers/jest_typed_mock'

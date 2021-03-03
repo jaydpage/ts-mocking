@@ -1,7 +1,7 @@
 import { ItemPriceAdjusterVersion2 } from './class_initialized_within_sut'
 import { PricingService } from '../dependencies/PricingService'
 import { createTypedMockClass } from './helpers/jest_typed_mock'
-import { testItemBuilder } from '../builders/test_item_builder'
+import { testItemBuilder } from './builders/test_item_builder'
 
 jest.mock('../dependencies/PricingService')
 

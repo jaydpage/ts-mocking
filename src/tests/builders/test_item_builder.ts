@@ -1,4 +1,4 @@
-import { Item } from '../dependencies/Item'
+import { Item } from '../../dependencies/Item'
 
 export function testItemBuilder(): any {
   const item: Item = {

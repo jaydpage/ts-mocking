@@ -1,4 +1,4 @@
-import { testItemBuilder } from '../builders/test_item_builder'
+import { testItemBuilder } from './builders/test_item_builder'
 import { PricingService } from '../dependencies/PricingService'
 import { ItemPriceAdjuster } from './class_injected_dependency'
 import { createTypedMockClass } from './helpers/jest_typed_mock'

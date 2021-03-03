@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import sinon from 'sinon'
-import { testItemBuilder } from '../builders/test_item_builder'
+import { testItemBuilder } from './builders/test_item_builder'
 import * as items from '../dependencies/get_all'
 import { getAllItemsOnSale } from './function_return_value'
 

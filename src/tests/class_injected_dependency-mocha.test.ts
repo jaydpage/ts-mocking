@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import sinon from 'sinon'
-import { testItemBuilder } from '../builders/test_item_builder'
+import { testItemBuilder } from './builders/test_item_builder'
 import { PricingService } from '../dependencies/PricingService'
 import { ItemPriceAdjuster } from './class_injected_dependency'
 
