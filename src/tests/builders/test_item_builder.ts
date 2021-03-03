@@ -1,8 +1,9 @@
 import { Item } from '../../dependencies/Item'
+import { randomUuid } from '../helpers/random'
 
 export function testItemBuilder(): any {
   const item: Item = {
-    id: '',
+    id: randomUuid(),
     name: '',
     price: 0,
     description: '',

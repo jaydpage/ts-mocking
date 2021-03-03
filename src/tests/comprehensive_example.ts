@@ -1,7 +1,7 @@
 import { Item } from '../dependencies/Item'
 import { InMemoryCache } from '../dependencies/InMemoryCache'
 import { ItemRepository } from '../dependencies/ItemRepository'
-import { PubSub } from '../dependencies/PubSub'
+import { PubSub, PubSubChannels } from '../dependencies/PubSub'
 
 // TODO: write tests for this
 export class ItemProcessor {
@@ -26,7 +26,7 @@ export class ItemProcessor {
 
     for (const item of unprocessedItems) {
       this.cache.update(item)
-      this.pubSub.publish('item:updated', item)
+      this.pubSub.publish(PubSubChannels.itemUpdated, item)
       this.processedItems.push(item)
     }
 

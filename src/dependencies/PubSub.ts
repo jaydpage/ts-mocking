@@ -1,5 +1,9 @@
 type Callback = (...params: any[]) => any
 
+export enum PubSubChannels {
+  itemUpdated = 'item:updated',
+}
+
 export class PubSub {
   private static instance: PubSub
   private subscriptions: Record<string, Callback[]>
