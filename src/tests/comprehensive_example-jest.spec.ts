@@ -111,17 +111,17 @@ describe('ItemProcessor', () => {
     })
 
     describe('given newly added unprocessed items', () => {
-      it.skip('processes all newly added items every x seconds', async () => {
+      it('processes all newly added items every x seconds', async () => {
         // Arrange
         jest.useFakeTimers()
         const item1 = testItemBuilder().build()
         const item2 = testItemBuilder().build()
         const item3 = testItemBuilder().build()
-        const item4 = testItemBuilder().build()
-        const item5 = testItemBuilder().build()
 
-        // TODO: allow for mock item repository to fake out results of specific calls, nth call = result
-        const itemRepository = new ItemRepository()
+        const mockItemRepository = mockItemRepositoryBuilder()
+          .withGetAllReturningOnce([item1])
+          .withGetAllReturningOnce([item1, item2, item3])
+          .build()
 
         const {
           inMemoryCache,
@@ -129,28 +129,29 @@ describe('ItemProcessor', () => {
           spyCalledTwice,
         } = createInMemoryCacheWithSpy()
 
-        const itemProcessor = createSut(inMemoryCache, itemRepository)
+        const itemProcessor = createSut(inMemoryCache, mockItemRepository)
         // Act
-        itemRepository.insert(item1)
         itemProcessor.processItems()
         await spyCalledOnce
         // Assert
-        expect(fakePubSub.publish).toHaveBeenCalledWith(
+        expect(fakePubSub.publish).toHaveBeenNthCalledWith(
+          1,
           PubSubChannels.itemUpdated,
           item1,
         )
-        itemRepository.insert(item2)
-        itemRepository.insert(item3)
         jest.advanceTimersByTime(processInterval)
         await spyCalledTwice
-        expect(fakePubSub.publish).toHaveBeenCalledWith(
+        expect(fakePubSub.publish).toHaveBeenNthCalledWith(
+          2,
           PubSubChannels.itemUpdated,
           item2,
         )
-        expect(fakePubSub.publish).toHaveBeenCalledWith(
+        expect(fakePubSub.publish).toHaveBeenNthCalledWith(
+          3,
           PubSubChannels.itemUpdated,
           item3,
         )
+        expect(fakePubSub.publish).toBeCalledTimes(3)
       })
     })
 
